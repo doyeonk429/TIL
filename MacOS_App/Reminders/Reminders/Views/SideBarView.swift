@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct SideBarView: View {
+    
+    @Environment(\.managedObjectContext) private var context: NSManagedObjectContext
+    @State private var isPresented: Bool = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("All Items Count 10")
@@ -19,11 +23,23 @@ struct SideBarView: View {
             
             Button {
                 print("pressed")
+                isPresented = true
             } label: {
-                Text("Add List")
+                HStack {
+                    Image(systemName: Constants.Icons.plusCircle)
+                    Text("Add List")
+                }
             }
+            .buttonStyle(.plain)
+            .padding()
             
         }
+        .sheet(isPresented: $isPresented) {
+            // dismiss
+        } content: {
+            AddNewListView(vm: AddNewListViewModel(context: context))
+        }
+
     }
 }
 
