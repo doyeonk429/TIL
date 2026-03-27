@@ -31,4 +31,12 @@ class NSColorTransformer: ValueTransformer {
             return nil
         }
     }
+    
+    override class func transformedValueClass() -> AnyClass {
+        return NSData.self
+    }
+
+    override class func allowsReverseTransformation() -> Bool {
+        return true
+    }
 }
